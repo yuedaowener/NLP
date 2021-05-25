@@ -12,7 +12,7 @@ import struct
 import sys
 import time
 import warnings
-from multiprocessing import Pool, Value, Array  # TODO： 多线程为啥有Array？这是干啥的？
+from multiprocessing import Value  # TODO： 多线程为啥有Array？这是干啥的？
 
 import numpy as np
 
@@ -212,32 +212,30 @@ def sigmoid(z):
 def init_net(dim, vocab_size):
     # Init syn0 with random numbers from a uniform distribution on the interval [-0.5, 0.5]/dim
     tmp = np.random.uniform(low=-0.5 / dim, high=0.5 / dim, size=(vocab_size, dim))  # TODO： 词向量初始化？
-    syn0 = np.ctypeslib.as_ctypes(tmp)  # TODO: what?
-    syn0 = Array(syn0._type_, syn0, lock=False)
+    syn0 = tmp
+    # syn0 = np.ctypeslib.as_ctypes(tmp)  # TODO: what?
+    # syn0 = Array(syn0._type_, syn0, lock=False)
 
     # Init syn1 with zeros
     tmp = np.zeros(shape=(vocab_size, dim))
-    syn1 = np.ctypeslib.as_ctypes(tmp)
-    syn1 = Array(syn1._type_, syn1, lock=False)
+    syn1 = tmp
+    # syn1 = np.ctypeslib.as_ctypes(tmp)
+    # syn1 = Array(syn1._type_, syn1, lock=False)
 
     return (syn0, syn1)
 
 
-# 多线程处理？
-def train_process(pid):
-    # Set fi to point to the right chunk of training file
-    start = vocab.bytes / num_processes * pid
-    end = vocab.bytes if pid == num_processes - 1 else vocab.bytes / num_processes * (pid + 1)
-    fi.seek(start)
-    # print 'Worker %d beginning training at %d, ending at %d' % (pid, start, end)
+def train_process_new(args):
+    vocab, syn0, syn1, table, cbow, neg, dim, starting_alpha, win, num_processes, global_word_count = args[:-1]
+    fi = args[-1]
 
     alpha = starting_alpha
 
     word_count = 0
     last_word_count = 0
 
-    while fi.tell() < end:
-        line = fi.readline().strip()
+    for line in fi:
+        line = line.strip()
         # Skip blank lines
         if not line:
             continue
@@ -324,6 +322,107 @@ def train_process(pid):
     fi.close()
 
 
+# 多线程处理？
+# def train_process(pid):
+#     # Set fi to point to the right chunk of training file
+#     start = vocab.bytes / num_processes * pid
+#     end = vocab.bytes if pid == num_processes - 1 else vocab.bytes / num_processes * (pid + 1)
+#     fi.seek(start)
+#     # print 'Worker %d beginning training at %d, ending at %d' % (pid, start, end)
+#
+#     alpha = starting_alpha
+#
+#     word_count = 0
+#     last_word_count = 0
+#
+#     while fi.tell() < end:
+#         line = fi.readline().strip()
+#         # Skip blank lines
+#         if not line:
+#             continue
+#
+#         # Init sent, a list of indices of words in line
+#         sent = vocab.indices(['<bol>'] + line.split() + ['<eol>'])
+#
+#         for sent_pos, token in enumerate(sent):
+#             if word_count % 10000 == 0:
+#                 global_word_count.value += (word_count - last_word_count)
+#                 last_word_count = word_count
+#
+#                 # Recalculate alpha
+#                 alpha = starting_alpha * (1 - float(global_word_count.value) / vocab.word_count)
+#                 if alpha < starting_alpha * 0.0001: alpha = starting_alpha * 0.0001
+#
+#                 # Print progress info
+#                 sys.stdout.write("\rAlpha: %f Progress: %d of %d (%.2f%%)" %
+#                                  (alpha, global_word_count.value, vocab.word_count,
+#                                   float(global_word_count.value) / vocab.word_count * 100))
+#                 sys.stdout.flush()
+#
+#             # Randomize window size, where win is the max window size
+#             current_win = np.random.randint(low=1, high=win + 1)
+#             context_start = max(sent_pos - current_win, 0)
+#             context_end = min(sent_pos + current_win + 1, len(sent))
+#             context = sent[context_start:sent_pos] + sent[sent_pos + 1:context_end]  # Turn into an iterator?
+#
+#             # CBOW
+#             if cbow:
+#                 # TODO: 核心的实施原理在这里？？
+#                 # Compute neu1
+#                 neu1 = np.mean(np.array([syn0[c] for c in context]), axis=0)
+#                 assert len(neu1) == dim, 'neu1 and dim do not agree'
+#
+#                 # Init neu1e with zeros
+#                 neu1e = np.zeros(dim)
+#
+#                 # Compute neu1e and update syn1
+#                 if neg > 0:
+#                     classifiers = [(token, 1)] + [(target, 0) for target in table.sample(neg)]
+#                 else:
+#                     classifiers = zip(vocab[token].path, vocab[token].code)
+#                 for target, label in classifiers:
+#                     z = np.dot(neu1, syn1[target])
+#                     p = sigmoid(z)
+#                     g = alpha * (label - p)
+#                     neu1e += g * syn1[target]  # Error to backpropagate to syn0
+#                     syn1[target] += g * neu1  # Update syn1
+#
+#                 # Update syn0
+#                 for context_word in context:
+#                     syn0[context_word] += neu1e
+#
+#             # Skip-gram
+#             else:
+#                 for context_word in context:
+#                     # Init neu1e with zeros
+#                     neu1e = np.zeros(dim)
+#
+#                     # Compute neu1e and update syn1
+#                     if neg > 0:
+#                         classifiers = [(token, 1)] + [(target, 0) for target in table.sample(neg)]
+#                     else:
+#                         classifiers = zip(vocab[token].path, vocab[token].code)
+#                     for target, label in classifiers:
+#                         z = np.dot(syn0[context_word], syn1[target])
+#                         p = sigmoid(z)
+#                         g = alpha * (label - p)
+#                         neu1e += g * syn1[target]  # Error to backpropagate to syn0
+#                         syn1[target] += g * syn0[context_word]  # Update syn1
+#
+#                     # Update syn0
+#                     syn0[context_word] += neu1e
+#
+#             word_count += 1
+#
+#     # Print progress info
+#     global_word_count.value += (word_count - last_word_count)
+#     sys.stdout.write("\rAlpha: %f Progress: %d of %d (%.2f%%)" %
+#                      (alpha, global_word_count.value, vocab.word_count,
+#                       float(global_word_count.value) / vocab.word_count * 100))
+#     sys.stdout.flush()
+#     fi.close()
+
+
 def save(vocab, syn0, fo, binary):
     print('Saving model to', fo)
 
@@ -338,7 +437,7 @@ def save(vocab, syn0, fo, binary):
                 fo.write(struct.pack('f', s))
             fo.write('\n')
     else:
-        fo = open(fo, 'w')
+        fo = open(fo, 'w', encoding='utf-8')
         fo.write('%d %d\n' % (len(syn0), dim))
         for token, vector in zip(vocab, syn0):
             word = token.word
@@ -348,10 +447,19 @@ def save(vocab, syn0, fo, binary):
     fo.close()
 
 
+def __init_process_new(args):
+    vocab, syn0_tmp, syn1_tmp, table, cbow, neg, dim, starting_alpha, win, num_processes, global_word_count = args[:-1]
+    fi = args[-1]
+    with warnings.catch_warnings():
+        warnings.simplefilter('ignore', RuntimeWarning)
+        syn0 = np.ctypeslib.as_array(syn0_tmp)
+        syn1 = np.ctypeslib.as_array(syn1_tmp)
+    pass
+
+
 def __init_process(*args):  # TODO：args这个用法，又忘记了。
     global vocab, syn0, syn1, table, cbow, neg, dim, starting_alpha
     global win, num_processes, global_word_count, fi
-
     vocab, syn0_tmp, syn1_tmp, table, cbow, neg, dim, starting_alpha, win, num_processes, global_word_count = args[:-1]
     fi = open(args[-1], 'r')
     with warnings.catch_warnings():
@@ -379,10 +487,17 @@ def train(fi, fo, cbow, neg, dim, alpha, win, min_count, num_processes, binary):
     # Begin training using num_processes workers
     t0 = time.time()
     fi = open(fi, 'r', encoding='utf-8')
-    pool = Pool(processes=num_processes, initializer=__init_process,
-                initargs=(vocab, syn0, syn1, table, cbow, neg, dim, alpha,
-                          win, num_processes, global_word_count, fi))
-    pool.map(train_process, range(num_processes))
+
+    args = (vocab, syn0, syn1, table, cbow, neg, dim, alpha,
+            win, num_processes, global_word_count, fi)
+    __init_process_new(args)
+    train_process_new(args)
+
+    # pool = Pool(processes=num_processes, initializer=__init_process,
+    #             initargs=(vocab, syn0, syn1, table, cbow, neg, dim, alpha,
+    #                       win, num_processes, global_word_count, fi))
+
+    # pool.map(train_process, range(num_processes))
     t1 = time.time()
     print('Completed training. Training took', (t1 - t0) / 60, 'minutes')
 
@@ -443,5 +558,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    run_cmd()
+    main()
+    # run_cmd()
