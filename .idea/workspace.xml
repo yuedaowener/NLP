@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="35c4372f-72df-4a23-984d-89ff31ea3a48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IlluminatedCloudWorkspaceSettings">
+    <option name="projectWorkspaceSettings">
+      <ProjectWorkspaceSettings>
+        <option name="anonymousApexSettings">
+          <AnonymousApexSettings>
+            <option name="savedDocuments">
+              <list>
+                <AnonymousApexSavedDocument>
+                  <option name="name" value="Anonymous Apex 1" />
+                </AnonymousApexSavedDocument>
+              </list>
+            </option>
+          </AnonymousApexSettings>
+        </option>
+        <option name="soqlQuerySettings">
+          <SoqlQuerySettings>
+            <option name="savedDocuments">
+              <list>
+                <SoqlQuerySavedDocument>
+                  <option name="name" value="SOQL Query 1" />
+                </SoqlQuerySavedDocument>
+              </list>
+            </option>
+          </SoqlQuerySettings>
+        </option>
+      </ProjectWorkspaceSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ssRJ5qCdl6cl8vukUuKAbCxLZD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Efficiency\21_Career\Projects\NLP\language_model\others" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.python_implement_cbow_skip (1)">
+    <configuration name="python_implement_cbow_skip (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NLP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/language_model/others" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="python_implement_cbow_skip" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="NLP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/language_model" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="D:\Efficiency\21_Career\Projects\NLP\language_model\others\python_implement_cbow_skip.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.python_implement_cbow_skip (1)" />
+        <item itemvalue="Python.python_implement_cbow_skip" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="35c4372f-72df-4a23-984d-89ff31ea3a48" name="Default Changelist" comment="" />
+      <created>1621659235701</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621659235701</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="515" y="242" key="Github.ShareDialog" timestamp="1621659249679">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="515" y="242" key="Github.ShareDialog/0.0.1280.689@0.0.1280.689" timestamp="1621659249679" />
+    <state x="451" y="50" key="Github.UntrackedFilesDialog" timestamp="1621659259491">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="451" y="50" key="Github.UntrackedFilesDialog/0.0.1280.689@0.0.1280.689" timestamp="1621659259491" />
+    <state width="1259" height="306" key="GridCell.Tab.0.bottom" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.0.bottom/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.0.center" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.0.center/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.0.left" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.0.left/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.0.right" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.0.right/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.1.bottom" timestamp="1621946898371">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.1.bottom/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898371" />
+    <state width="1259" height="272" key="GridCell.Tab.1.bottom/0.0.1280.689@0.0.1280.689" timestamp="1621665722372" />
+    <state width="1259" height="306" key="GridCell.Tab.1.center" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.1.center/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.1.center/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.1.left" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.1.left/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.1.left/0.0.1280.689@0.0.1280.689" timestamp="1621665722371" />
+    <state width="1259" height="306" key="GridCell.Tab.1.right" timestamp="1621946898369">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1259" height="306" key="GridCell.Tab.1.right/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946898369" />
+    <state width="1259" height="272" key="GridCell.Tab.1.right/0.0.1280.689@0.0.1280.689" timestamp="1621665722372" />
+    <state x="303" y="10" width="672" height="678" key="search.everywhere.popup" timestamp="1621946470318">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="303" y="10" width="672" height="678" key="search.everywhere.popup/0.0.1280.689/1920.0.1152.690@0.0.1280.689" timestamp="1621946470318" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>228</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>269</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>296</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>428</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>384</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>411</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>381</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/language_model/others/python_implement_cbow_skip.py</url>
+          <line>357</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
