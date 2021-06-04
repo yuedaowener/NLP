@@ -12,7 +12,7 @@ import struct
 import sys
 import time
 import warnings
-from multiprocessing import Value  # TODO： 多线程为啥有Array？这是干啥的？
+from multiprocessing import Value  # TODO： 这是干啥的？
 
 import numpy as np
 
@@ -37,7 +37,7 @@ class Vocab:
             vocab_hash[token] = len(vocab_items)
             vocab_items.append(VocabItem(token))
 
-        for line in fi:  # FIXME: 'gbk' codec can't decode byte 0x94 in position 3602: illegal multibyte sequence
+        for line in fi:
             tokens = line.split()
             for token in tokens:
                 if token not in vocab_hash:
@@ -89,7 +89,7 @@ class Vocab:
         tmp.append(VocabItem('<unk>'))
         unk_hash = 0
 
-        count_unk = 0
+        count_unk = 0  # # TODO： 重构，删除个数不够的另外写个函数
         for token in self.vocab_items:
             if token.count < min_count:
                 count_unk += 1
@@ -178,7 +178,7 @@ class UnigramTable:
 
     def __init__(self, vocab):
         vocab_size = len(vocab)
-        power = 0.75
+        power = 0.75  # TODO： power是啥参数？
         norm = sum([math.pow(t.count, power) for t in vocab])  # Normalizing constant
 
         # table_size = int(1e8)  # Length of the unigram table # TODO: unigram的大小还需要设置？不是词库决定的吗
@@ -195,7 +195,7 @@ class UnigramTable:
                 i += 1
         self.table = table
 
-    def sample(self, count):
+    def sample(self, count):  # TODO： 执行负采样任务？
         indices = np.random.randint(low=0, high=len(self.table), size=count)
         return [self.table[i] for i in indices]
 
@@ -229,7 +229,7 @@ def train_process_new(args):
     vocab, syn0, syn1, table, cbow, neg, dim, starting_alpha, win, num_processes, global_word_count = args[:-1]
     fi = args[-1]
 
-    alpha = starting_alpha
+    alpha = starting_alpha  # TODO： alpha是什么参数？功能是啥？
 
     word_count = 0
     last_word_count = 0
@@ -249,7 +249,7 @@ def train_process_new(args):
                 last_word_count = word_count
 
                 # Recalculate alpha
-                alpha = starting_alpha * (1 - float(global_word_count.value) / vocab.word_count)
+                alpha = starting_alpha * (1 - float(global_word_count.value) / vocab.word_count)  # TODO： 这个值和学习率一样？
                 if alpha < starting_alpha * 0.0001: alpha = starting_alpha * 0.0001
 
                 # Print progress info
@@ -259,17 +259,17 @@ def train_process_new(args):
                 sys.stdout.flush()
 
             # Randomize window size, where win is the max window size
-            current_win = np.random.randint(low=1, high=win + 1)
+            current_win = np.random.randint(low=1, high=win + 1)  # TODO： 这是在干啥？为啥要重新搞窗口大小？
             context_start = max(sent_pos - current_win, 0)
             context_end = min(sent_pos + current_win + 1, len(sent))
             context = sent[context_start:sent_pos] + sent[sent_pos + 1:context_end]  # Turn into an iterator?
 
             # CBOW
             if cbow:
-                # TODO: 核心的实施原理在这里？？
-                # Compute neu1
+
+                # Compute neu1  # TODO： neu1是啥？干啥的？
                 neu1 = np.mean(np.array([syn0[c] for c in context]), axis=0)
-                assert len(neu1) == dim, 'neu1 and dim do not agree'
+                assert len(neu1) == dim, 'neu1 and dim do not agree'  # TODO： assert语句后面可以逗号？？好神奇。
 
                 # Init neu1e with zeros
                 neu1e = np.zeros(dim)
@@ -282,7 +282,7 @@ def train_process_new(args):
                 for target, label in classifiers:
                     z = np.dot(neu1, syn1[target])
                     p = sigmoid(z)
-                    g = alpha * (label - p)
+                    g = alpha * (label - p)  # TODO： g是干啥的？
                     neu1e += g * syn1[target]  # Error to backpropagate to syn0
                     syn1[target] += g * neu1  # Update syn1
 
@@ -472,7 +472,7 @@ def train(fi, fo, cbow, neg, dim, alpha, win, min_count, num_processes, binary):
     # Read train file to init vocab
     vocab = Vocab(fi, min_count)
 
-    # Init net
+    # Init net  # TODO：syn0这个名字，到底是啥意思？
     syn0, syn1 = init_net(dim, len(vocab))
 
     global_word_count = Value('i', 0)  # TODO: i?
@@ -490,7 +490,7 @@ def train(fi, fo, cbow, neg, dim, alpha, win, min_count, num_processes, binary):
 
     args = (vocab, syn0, syn1, table, cbow, neg, dim, alpha,
             win, num_processes, global_word_count, fi)
-    __init_process_new(args)
+    # __init_process_new(args)  # TODO： 没有也没关系吧？
     train_process_new(args)
 
     # pool = Pool(processes=num_processes, initializer=__init_process,
@@ -546,8 +546,6 @@ def gen_small_data(n_sample=1000):
 
 def main():
     # gen_small_data(n_sample=10000)
-
-    # TODO: 这个是在python2上实现的，改成python3
     # fi = r"C:\Users\chen_\Desktop\enwik8\enwik8"
     fi = r"C:\Users\chen_\Desktop\enwik8\enwik8_small"
     fo = r"C:\Users\chen_\Desktop\enwik8\out"
