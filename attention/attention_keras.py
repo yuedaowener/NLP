@@ -189,7 +189,7 @@ class MultiHeadAttention(Layer):
         """
         q, k, v = inputs[:3]
         q_mask, v_mask = None, None
-        if mask is not None:
+        if mask is not  None:
             q_mask, v_mask = mask[0], mask[2]
         # 线性变换
         qw = self.q_dense(q)
