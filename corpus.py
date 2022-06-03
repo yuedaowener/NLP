@@ -1,0 +1,1 @@
+hello = "You say goodbye and I say hello."

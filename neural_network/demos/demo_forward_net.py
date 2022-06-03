@@ -1,21 +1,5 @@
 import numpy as np
 
-class Sigmoid:
-    def __init__(self) -> None:
-        self.params = []
-    
-    def forward(self, x):
-        return 1 / (1 + np.exp(-x))     # todo: 这里的矩阵运算是怎么回事？
-
-
-class Affine:
-    def __init__(self, W, b) -> None:
-        self.params = [W, b]
-    
-    def forward(self, x):
-        W, b = self.params
-        out = np.dot(x, W) + b
-        return out
 
 
 class TwoLayerNet:

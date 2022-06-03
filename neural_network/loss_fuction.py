@@ -1,19 +1,5 @@
-# coding: utf-8
 import numpy as np
-# from common.np import *   # 这是啥意思？
 
-def softmax(x):
-    if x.ndim == 2: # ndim是个啥?有这个属性吗?
-        x = x - x.max(axis=1, keepdims=True) # ??
-        x = np.exp(x)
-        x /= x.sum(axis=1, keepdims=True)
-        # 按数据个数平均
-        
-    elif x.ndim == 1:
-        x = x - np.max(x)
-        x = np.exp(x) / np.sum(np.exp(x))
-    
-    return x
 
 def cross_entropy_error(y, t):
     if y.ndim == 1: # 如果是一维的, 比如说[0.1, 0.6, 0.3]
@@ -38,6 +24,3 @@ def cross_entropy_error(y, t):
     return loss
 
         
-
-
-    

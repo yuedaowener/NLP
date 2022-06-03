@@ -1,10 +1,32 @@
-from functions import softmax, cross_entropy_error
+import sys
+sys.path.append('.')
+sys.path.append('..')
+
 import numpy as np
+from .activation import softmax
+from .loss_fuction import cross_entropy_error
+
+class Sigmoid:
+    def __init__(self) -> None:
+        self.params = []
+    
+    def forward(self, x):
+        return 1 / (1 + np.exp(-x))     # todo: 这里的矩阵运算是怎么回事？
 
 
-class MatMul:
+class Affine:
+    def __init__(self, W, b) -> None:
+        self.params = [W, b]
+    
+    def forward(self, x):
+        W, b = self.params
+        out = np.dot(x, W) + b
+        return out
+
+
+class MatMulMy:
     def __init__(self, W) -> None:
-        self.params = [W]   # W直接就给了？不需要自己初始化？
+        self.params = [W]
         self.grads = [np.zeros_like(W)]
         self.x = None
 
@@ -33,11 +55,55 @@ class MatMul:
         self.grads[0][...] = dw  # 是深复制：将前者所指的地址里的值变成后者所指地址里的值。
         # 用self.gras[0] = dw 是浅复制：将前者也指向后者所指的地址。
         return dx
+
+class MatMul:
+    def __init__(self, W):
+        self.params = [W]
+        self.grads = [np.zeros_like(W)]
+        self.x = None
+
+    def forward(self, x):
+        W, = self.params
+        out = np.dot(x, W)
+        self.x = x
+        return out
+
+    def backward(self, dout):
+        W, = self.params
+        dx = np.dot(dout, W.T)
+        dW = np.dot(self.x.T, dout)
+        self.grads[0][...] = dW
+        return dx
         
  
-    
-
 class SoftmaxWithLoss:
+    def __init__(self):
+        self.params, self.grads = [], []
+        self.y = None  # softmax的输出
+        self.t = None  # 监督标签
+
+    def forward(self, x, t):
+        self.t = t
+        self.y = softmax(x)
+
+        # 在监督标签为one-hot向量的情况下，转换为正确解标签的索引
+        if self.t.size == self.y.size:
+            self.t = self.t.argmax(axis=1)
+
+        loss = cross_entropy_error(self.y, self.t)
+        return loss
+
+    def backward(self, dout=1):
+        batch_size = self.t.shape[0]
+
+        dx = self.y.copy()
+        dx[np.arange(batch_size), self.t] -= 1
+        dx *= dout
+        dx = dx / batch_size
+
+        return dx
+
+class SoftmaxWithLossMy:
     def __init__(self) -> None:
         self.params, self.grads = [], []
         self.loss = None
